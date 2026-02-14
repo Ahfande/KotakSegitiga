@@ -1146,3 +1146,123 @@ body {
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
+
+/* Animasi Scroll */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Class untuk animasi */
+.scroll-animation {
+  opacity: 0;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-animation.fade-in-up {
+  animation-name: fadeInUp;
+}
+
+.scroll-animation.fade-in-left {
+  animation-name: fadeInLeft;
+}
+
+.scroll-animation.fade-in-right {
+  animation-name: fadeInRight;
+}
+
+.scroll-animation.scale-in {
+  animation-name: scaleIn;
+}
+
+/* Delay animasi */
+.delay-1 {
+  animation-delay: 0.2s;
+}
+
+.delay-2 {
+  animation-delay: 0.4s;
+}
+
+.delay-3 {
+  animation-delay: 0.6s;
+}
+
+.delay-4 {
+  animation-delay: 0.8s;
+}
+
+/* Hover effect untuk cards */
+.whoweare-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whoweare-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+.collection-item {
+  transition: transform 0.3s ease;
+}
+
+.collection-item:hover {
+  transform: translateY(-8px);
+}
+
+/* Stagger animation untuk grid items */
+.instagram-post {
+  transition: transform 0.3s ease;
+}
+
+.instagram-post:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+

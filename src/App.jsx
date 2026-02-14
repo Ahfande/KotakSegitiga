@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useEffect} from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.css';
 import FullMenu from './FullMenu'; // Import halaman menu
-import { useNavigate } from 'react-router-dom';
+import logoIcon from './assets/logoIcon.png';
 
 
 function App() {
@@ -16,7 +16,33 @@ function App() {
   );
 }
 
+const useScrollAnimation = () => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    const elements = document.querySelectorAll('.scroll-animation');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+};
+
 const HomePage = () => {
+    useScrollAnimation();
   return (
     <div className="app dark">
       <div className="layout-container">
@@ -36,11 +62,25 @@ const HomePage = () => {
 
 // Navbar Component
 const Navbar = () => {
+  const [scrolled, setScrolled] = React.useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrolled]);
+
   return (
     <header className="navbar">
       <div className="navbar-container">
         <div className="logo-area">
-            <img src="./src/assets/logoIcon.png" className='logo-icon' />
+            <img src={logoIcon} className='logo-icon' />
           <h2 className="logo-text">Kotak Segitiga</h2>
         </div>
 
@@ -369,7 +409,7 @@ const Footer = () => {
           <div className="footer-brand">
             <div className="footer-logo-area">
               <div className="footer-logo-icon">
-                <img src="./src/assets/logoIcon.png" className='logo-icon' />
+                <img src={logoIcon} className='logo-icon' />
               </div>
               <h2 className="footer-logo-text">Kotak Segitiga</h2>
             </div>
